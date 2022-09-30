@@ -12,12 +12,8 @@ create table user(
 );
 
 -- 회원 회원가입
-INSERT INTO user
-			(name, id, pass, reg_date, email, origin_pic, 
-					stored_pic, auth_key, auth_status)
-VALUES
-	    (#{name}, #{id}, #{pass}, now(), #{email}, #{originPic}, 
-					#{storedPic}, #{authKey}, #{authStatus})
+INSERT INTO user (name, id, pass, reg_date, email, origin_pic, stored_pic, auth_key, auth_status)
+VALUES (#{name}, #{id}, #{pass}, now(), #{email}, #{originPic}, #{storedPic}, #{authKey}, #{authStatus})
 
 -- 회원 이메일 조회
 SELECT COUNT(*) FROM user WHERE email=#{email}
@@ -41,17 +37,14 @@ SELECT id FROM user WHERE email=#{email} AND pass=#{pass}
 UPDATE user SET auth_key=#{authKey} WHERE email=#{email}
 
 -- 회원 인증상태 수정
-UPDATE user SET auth_status=1 
-			WHERE auth_key=#{authKey} and email=#{email}
+UPDATE user SET auth_status=1 WHERE auth_key=#{authKey} and email=#{email}
 
 -- 회원 삭제
 DELETE FROM user WHERE user_no = #{userNo}
 
 -- 회원 정보 수정
 UPDATE user 
-SET origin_pic = #{originPic}, stored_pic = #{storedPic}, id = #{id}, 
-					email = #{email}, pass = #{pass} WHERE user_no = #{userNo}
+SET origin_pic = #{originPic}, stored_pic = #{storedPic}, id = #{id}, email = #{email}, pass = #{pass} WHERE user_no = #{userNo}
 
 -- 기본 프로필로 수정
-UPDATE user SET origin_pic='profile.png', stored_pic=NULL 
-WHERE user_no = #{userNo};
+UPDATE user SET origin_pic='profile.png', stored_pic=NULL WHERE user_no = #{userNo};
